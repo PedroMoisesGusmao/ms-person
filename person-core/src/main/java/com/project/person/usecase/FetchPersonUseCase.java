@@ -1,11 +1,11 @@
 package com.project.person.usecase;
 
-import com.project.person.ports.input.FetchPersonInputPort;
+import com.project.person.ports.output.FetchPersonOutputPort;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FetchPersonUseCase implements FetchPersonInputPort {
+public class FetchPersonUseCase implements FetchPersonOutputPort {
 
     @Override
     public String fetch() {
