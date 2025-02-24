@@ -5,3 +5,7 @@ spring:
   data:
     mongodb:
       uri: ${DATABASE_URL}
+
+logging:
+    level:
+        org.springframework: DEBUG
