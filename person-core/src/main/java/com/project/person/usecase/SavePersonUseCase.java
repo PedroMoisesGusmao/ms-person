@@ -9,13 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SavePersonUseCase implements SavePersonInputPort {
 
     private final SavePersonOutputPort savePerson;
-
-    public SavePersonUseCase(SavePersonOutputPort savePerson) {
-        this.savePerson = savePerson;
-    }
 
     @Override
     public Person save(Person person) {
