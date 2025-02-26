@@ -16,13 +16,13 @@ public class SavePersonUseCase implements SavePersonInputPort {
 
     @Override
     public Person save(Person person) {
-        log.info("[PERSON - SAVE PERSON][Start] Save person: cpfCnpj: {}, person: {}",
-                person.getCpfCnpj(),
+        log.info("[PERSON - SAVE PERSON][Start] Save person: cpf: {}, person: {}",
+                person.getCpf(),
                 person);
 
         Person savedPerson = savePerson.save(person);
 
-        log.info("[PERSON - SAVE PERSON][End] Save Person: id: {}", savedPerson.getId());
+        log.info("[PERSON - SAVE PERSON][End] Saved Person: id: {}", savedPerson.getId());
 
         return savedPerson;
     }

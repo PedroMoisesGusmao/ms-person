@@ -18,7 +18,7 @@ public class SavePersonAdapter implements SavePersonOutputPort {
     @Override
     public Person save(Person person) {
         final PersonEntity entity = mapper.toEntity(person);
-        final PersonEntity personSaved = repository.save(entity);
-        return mapper.toDomain(personSaved);
+        repository.save(entity);
+        return mapper.toDomain(entity);
     }
 }

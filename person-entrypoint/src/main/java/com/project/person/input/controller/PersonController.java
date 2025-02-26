@@ -5,9 +5,11 @@ import com.project.person.input.domain.request.PersonRequest;
 import com.project.person.input.domain.response.PersonResponse;
 import com.project.person.input.mapper.PersonMapper;
 import com.project.person.ports.input.SavePersonInputPort;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +22,7 @@ public class PersonController {
     private final SavePersonInputPort savePerson;
     private final PersonMapper mapper;
     @PostMapping
-    public ResponseEntity<PersonResponse> save(final PersonRequest request) {
+    public ResponseEntity<PersonResponse> save(@RequestBody @Valid final PersonRequest request) {
         Person person = savePerson.save(mapper.toPerson(request));
         return ResponseEntity.status(CREATED).body(mapper.toPersonResponse(person));
     }
