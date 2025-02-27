@@ -1,11 +1,19 @@
-FROM maven:3.9.9-amazoncorretto-17-debian as build
-
-RUN mvn package
-
-FROM amazoncorretto:8-alpine3.21-jdk
+FROM maven:3.8.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-COPY --from=build /target/person-entrypoint-0.0.1-SNAPSHOT.jar app/person.jar
+COPY . .
 
-ENTRYPOINT [ "java", "-jar", "person.jar" ]
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/person-entrypoint/target/*.jar app.jar
+
+ENV DATABASE_URL=mongodb+srv://person:person@person.xchvu.mongodb.net/person
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+EXPOSE 8080
