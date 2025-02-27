@@ -22,7 +22,7 @@ public class Person {
 
     private String cpf;
 
-    private List<Address> address;
+//    private List<Address> addresses;
 
     private String birthDate;
 }

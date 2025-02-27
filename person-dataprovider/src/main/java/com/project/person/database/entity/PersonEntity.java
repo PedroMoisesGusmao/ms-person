@@ -24,8 +24,8 @@ public class PersonEntity {
     @Field("cpf")
     private String cpf;
 
-    @Field("addresses")
-    private List<AddressEntity> address;
+//    @Field("addresses")
+//    private List<AddressEntity> address;
 
     @Field("birth_date")
     private String birthDate;
