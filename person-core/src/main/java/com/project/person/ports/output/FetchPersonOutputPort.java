@@ -1,5 +1,7 @@
 package com.project.person.ports.output;
 
+import com.project.person.domain.Person;
+
 public interface FetchPersonOutputPort {
-    String fetch();
+    Person fetch(String id);
 }
