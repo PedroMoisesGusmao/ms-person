@@ -6,14 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Document("person")
 public class PersonEntity {
     @MongoId
-    private String id;
+    private int id;
 
     @Field("name")
     private String name;
@@ -24,8 +22,8 @@ public class PersonEntity {
     @Field("cpf")
     private String cpf;
 
-//    @Field("addresses")
-//    private List<AddressEntity> address;
+    @Field("address")
+    private AddressEntity address;
 
     @Field("birth_date")
     private String birthDate;

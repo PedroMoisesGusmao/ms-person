@@ -1,22 +1,25 @@
 package com.project.person.database.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@AllArgsConstructor
+@Getter
+@Setter
 public class AddressEntity {
 
-    private String city;
-
-    private String state;
-
-    private String neighborhood;
-
-    private String streetName;
-
-    private String streetNumber;
-
-    private String addressComplement;
-
+    @Field("zip_code")
     private String zipCode;
 
+    @Field("thoroughfare")
+    private String thoroughfare;
+
+    @Field("address_complement")
+    private String addressComplement;
+
+    @Field("neighborhood")
+    private String neighborhood;
+
+    @Field("state")
+    private String state;
 }

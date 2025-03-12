@@ -1,6 +1,6 @@
 package com.project.person.adapter.output;
 
-import com.project.person.adapter.mapper.PersonEntityMapper;
+import com.project.person.adapter.mapper.PersonMapper;
 import com.project.person.database.entity.PersonEntity;
 import com.project.person.database.repository.PersonRepository;
 import com.project.person.domain.Person;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FetchPersonByCpfAdapter implements FetchPersonByCpfOutputPort {
     private final PersonRepository repository;
-    private final PersonEntityMapper mapper;
+    private final PersonMapper mapper;
     @Override
     public Optional<Person> fetchByCpf(String cpf) {
         Optional<PersonEntity> optionalPerson = repository.findByCpf(cpf);

@@ -1,9 +1,10 @@
 package com.project.person.input.controller;
 
 import com.project.person.domain.Person;
+import com.project.person.input.controller.contract.PersonContract;
+import com.project.person.input.controller.mapper.PersonRequestMapper;
 import com.project.person.input.domain.request.PersonRequest;
 import com.project.person.input.domain.response.PersonResponse;
-import com.project.person.input.mapper.PersonMapper;
 import com.project.person.ports.input.FetchPersonInputPort;
 import com.project.person.ports.input.SavePersonInputPort;
 import jakarta.validation.Valid;
@@ -22,12 +23,12 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/person")
-public class PersonController {
+public class PersonController implements PersonContract {
     private final FetchPersonInputPort fetchPerson;
     private final SavePersonInputPort savePerson;
-    private final PersonMapper mapper;
+    private final PersonRequestMapper mapper;
     @GetMapping
-    public ResponseEntity<PersonResponse> fetch(@RequestHeader String id) {
+    public ResponseEntity<PersonResponse> fetch(@RequestHeader final String id) {
         Person person = fetchPerson.fetch(id);
         return ResponseEntity.status(OK).body(mapper.toPersonResponse(person));
     }

@@ -5,3 +5,11 @@ spring:
   data:
     mongodb:
       uri: ${DATABASE_URL}
+
+project:
+  client:
+    person:
+      zipcode:
+        url: ${PROJECT_PERSON_ZIPCODE_URL}
+        paths:
+          get-zipcode: ws/{zip_code}/json

@@ -28,7 +28,7 @@ public class PersonExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(BadRequestException.class)
     public BadRequestResponse badRequest(BadRequestException e) {
-        log.error("[Bad Request][ERROR] badRequest {}", e.getMessage(), e);
+        log.error("[Bad Request][ERROR] badRequest: {}", e.getMessage(), e);
         return new BadRequestResponse(e.getMessage());
     }
 }

@@ -13,6 +13,7 @@ WORKDIR /app
 COPY --from=build /app/person-entrypoint/target/*.jar app.jar
 
 ENV DATABASE_URL=mongodb+srv://person:person@person.xchvu.mongodb.net/person
+ENV PROJECT_PERSON_ZIPCODE_URL=http://viacep.com.br
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
