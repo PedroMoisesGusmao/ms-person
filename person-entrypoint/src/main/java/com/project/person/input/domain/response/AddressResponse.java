@@ -16,8 +16,8 @@ public class AddressResponse {
     @Schema(name = "thoroughfare", description = "The thoroughfare of the address", example = "Rua dos Bobos")
     private String thoroughfare;
 
-    @Schema(name = "addressComplement", description = "The address complement", example = "Apto 123")
-    private String addressComplement;
+    @Schema(name = "complement", description = "The address complement", example = "Apto 123")
+    private String complement;
 
     @Schema(name = "neighborhood", description = "The neighborhood of the address", example = "Vila dos Devs")
     private String neighborhood;
