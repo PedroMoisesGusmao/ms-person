@@ -36,11 +36,11 @@ public class SavePersonUseCase implements SavePersonInputPort {
         person.setId(definePersonId());
         Address address = fetchAddressByZipCode.fetchAddress(person.getAddress().getZipCode());
         person.setAddress(address);
-        Person savedPerson = savePerson.save(person);
+        savePerson.save(person);
 
-        log.info("[SavePersonUseCase][End] Saved Person: {}", savedPerson);
+        log.info("[SavePersonUseCase][End] Saved Person: {}", person);
 
-        return savedPerson;
+        return person;
     }
 
     private void validateAge(LocalDate birthDate) {
