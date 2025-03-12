@@ -4,6 +4,7 @@ import com.project.person.adapter.mapper.PersonMapper;
 import com.project.person.client.FetchAddressByZipCodeClient;
 import com.project.person.domain.Address;
 import com.project.person.domain.response.AddressResponse;
+import com.project.person.exception.InvalidZipCodeException;
 import com.project.person.ports.output.FetchAddressByZipCodeOutputPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,16 +18,22 @@ public class FetchAddressByZipCodeAdapter implements FetchAddressByZipCodeOutput
     private final PersonMapper mapper;
 
     @Override
-    public Address fetchAddress(String zipCode) {
+    public Address fetchAddress(final String zipCode) {
         log.info("[FetchAddressByZipCodeAdapter][Start] Fetch address by zip code: {}",
                 zipCode);
-        AddressResponse addressResponse = client.fetchAddressByZipCode(zipCode);
-        addressResponse.setCep(formatZipCode(addressResponse.getCep()));
-        log.info("[FetchAddressByZipCodeAdapter][End] Fetched address: {}", addressResponse);
-        return mapper.toAddressFromAddressResponse(addressResponse);
+        final AddressResponse response = client.fetchAddressByZipCode(zipCode);
+        verifyNullBody(response);
+        response.setCep(formatZipCode(response.getCep()));
+        log.info("[FetchAddressByZipCodeAdapter][End] Fetched address: {}", response);
+        return mapper.toAddressFromAddressResponse(response);
     }
 
-    private static String formatZipCode(String zipCode) {
+    private static void verifyNullBody(final AddressResponse response) {
+        if (response == null) {
+            throw new InvalidZipCodeException();
+        }
+    }
+    private static String formatZipCode(final String zipCode) {
         return zipCode.replace("-", "");
     }
 }
