@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class FetchPersonUseCase implements FetchPersonInputPort {
     private final FetchPersonOutputPort fetchPerson;
     @Override
-    public Person fetch(String id) {
+    public Person fetch(final String id) {
         log.info("[FetchPersonUseCase][Start] - Fetching person with id: {}", id);
         Person person = fetchPerson.fetch(id);
         log.info("[FetchPersonUseCase][End] - Person fetched: {}", person);
