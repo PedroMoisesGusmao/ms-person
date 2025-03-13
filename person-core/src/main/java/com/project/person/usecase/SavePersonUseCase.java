@@ -11,6 +11,7 @@ import com.project.person.ports.output.FetchPersonByCpfOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,7 +27,9 @@ public class SavePersonUseCase implements SavePersonInputPort {
     private final FetchAddressByZipCodeOutputPort fetchAddressByZipCode;
     private final FetchLastRegisteredPersonOutputPort fetchLastRegisteredPerson;
 
-    private final static int MINIMUM_AGE = 16;
+    @Value("${project.person.minimum-age}")
+    private int minimumAge;
+
     @Override
     public Person save(final Person person) {
         log.info("[SavePersonUseCase][Start] Save person: {}", person);
@@ -46,7 +49,7 @@ public class SavePersonUseCase implements SavePersonInputPort {
     private void validateAge(LocalDate birthDate) {
         Period period = Period.between(birthDate, LocalDate.now());
 
-        if (period.getYears() < MINIMUM_AGE) {
+        if (period.getYears() < minimumAge) {
             throw new UnderAgePersonException();
         }
     }

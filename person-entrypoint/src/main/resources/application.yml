@@ -13,3 +13,5 @@ project:
         url: ${PROJECT_PERSON_ZIPCODE_URL}
         paths:
           get-zipcode: ws/{zip_code}/json
+  person:
+    minimum-age: 16

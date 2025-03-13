@@ -9,12 +9,14 @@ import com.project.person.ports.output.FetchPersonByCpfOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
 import com.project.person.usecase.SavePersonUseCase;
 import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -41,13 +43,14 @@ public class SavePersonUseCaseTest {
     private EasyRandom easyRandom;
     private Person person;
 
-    private final static int MINIMUM_AGE = 16;
-
     @BeforeEach
     void setUp() {
-        easyRandom = new EasyRandom();
+        EasyRandomParameters parameters = new EasyRandomParameters()
+                .randomize(field -> field.getName().equals("birthDate"),
+                        () -> LocalDate.now().minusYears(16));
+        easyRandom = new EasyRandom(parameters);
         person = easyRandom.nextObject(Person.class);
-        person.setBirthDate(LocalDate.now().minusYears(MINIMUM_AGE));
+        ReflectionTestUtils.setField(useCase, "MINIMUM_AGE", 16);
     }
 
     @Test
