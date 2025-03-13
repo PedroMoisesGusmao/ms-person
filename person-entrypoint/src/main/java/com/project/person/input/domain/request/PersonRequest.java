@@ -30,7 +30,7 @@ public class PersonRequest {
 
     @Schema(name = "zip_code", description = "The zip code of the person", example = "04568020")
     @NotBlank(message = "The 'zipCode' field cannot be empty")
-    @Size(min = 8, max = 8, message = "The 'zip_code' field must have 8 digits")
+    @Size(min = 8, max = 9, message = "The 'zip_code' field must have 8 digits")
     private String zipCode;
 
     @Schema(name = "birth_date", description = "The birth date of the person", example = "2008-11-04")

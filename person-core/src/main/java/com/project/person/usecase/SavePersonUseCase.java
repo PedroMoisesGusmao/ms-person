@@ -5,7 +5,7 @@ import com.project.person.domain.Person;
 import com.project.person.exception.PersonIsAlreadyRegisteredException;
 import com.project.person.exception.UnderAgePersonException;
 import com.project.person.ports.input.SavePersonInputPort;
-import com.project.person.ports.output.FetchAddressByZipCodeOutputPort;
+import com.project.person.ports.output.FetchAddressOutputPort;
 import com.project.person.ports.output.FetchLastRegisteredPersonOutputPort;
 import com.project.person.ports.output.FetchPersonByCpfOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
@@ -24,7 +24,7 @@ public class SavePersonUseCase implements SavePersonInputPort {
 
     private final SavePersonOutputPort savePerson;
     private final FetchPersonByCpfOutputPort fetchPersonByCpf;
-    private final FetchAddressByZipCodeOutputPort fetchAddressByZipCode;
+    private final FetchAddressOutputPort fetchAddressByZipCode;
     private final FetchLastRegisteredPersonOutputPort fetchLastRegisteredPerson;
 
     @Value("${project.person.minimum-age}")

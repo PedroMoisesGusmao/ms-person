@@ -3,7 +3,7 @@ package com.project.usecase;
 import com.project.person.domain.Person;
 import com.project.person.exception.PersonIsAlreadyRegisteredException;
 import com.project.person.exception.UnderAgePersonException;
-import com.project.person.ports.output.FetchAddressByZipCodeOutputPort;
+import com.project.person.ports.output.FetchAddressOutputPort;
 import com.project.person.ports.output.FetchLastRegisteredPersonOutputPort;
 import com.project.person.ports.output.FetchPersonByCpfOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
@@ -37,7 +37,7 @@ public class SavePersonUseCaseTest {
     @Mock
     private FetchPersonByCpfOutputPort fetchPersonByCpf;
     @Mock
-    private FetchAddressByZipCodeOutputPort fetchAddressByZipCode;
+    private FetchAddressOutputPort fetchAddressByZipCode;
     @Mock
     private FetchLastRegisteredPersonOutputPort fetchLastRegisteredPerson;
     private EasyRandom easyRandom;
