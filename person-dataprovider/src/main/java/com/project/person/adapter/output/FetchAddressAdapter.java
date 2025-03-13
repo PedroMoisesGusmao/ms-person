@@ -5,7 +5,7 @@ import com.project.person.client.FetchAddressByZipCodeClient;
 import com.project.person.domain.Address;
 import com.project.person.domain.response.AddressResponse;
 import com.project.person.exception.InvalidZipCodeException;
-import com.project.person.ports.output.FetchAddressByZipCodeOutputPort;
+import com.project.person.ports.output.FetchAddressOutputPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class FetchAddressByZipCodeAdapter implements FetchAddressByZipCodeOutputPort {
+public class FetchAddressAdapter implements FetchAddressOutputPort {
     private final FetchAddressByZipCodeClient client;
     private final PersonMapper mapper;
 
