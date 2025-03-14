@@ -29,7 +29,7 @@ public class FetchAddressAdapter implements FetchAddressOutputPort {
     }
 
     private static void verifyNullBody(final AddressResponse response) {
-        if (response == null) {
+        if (response.getCep() == null) {
             throw new InvalidZipCodeException();
         }
     }
