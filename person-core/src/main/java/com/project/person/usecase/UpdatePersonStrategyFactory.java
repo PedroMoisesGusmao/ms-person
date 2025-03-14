@@ -1,11 +1,10 @@
 package com.project.person.usecase;
 
-import com.project.person.exception.FieldToUpdateNotFoundException;
+import com.project.person.exception.InvalidFieldToUpdateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -16,6 +15,6 @@ public class UpdatePersonStrategyFactory {
         return strategies.stream()
                 .filter(strategy -> strategy.isValid(field))
                 .findFirst()
-                .orElseThrow(() -> new FieldToUpdateNotFoundException(field));
+                .orElseThrow(() -> new InvalidFieldToUpdateException(field));
     }
 }
