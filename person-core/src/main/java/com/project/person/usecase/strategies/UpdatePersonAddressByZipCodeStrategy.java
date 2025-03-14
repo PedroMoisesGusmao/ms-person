@@ -28,7 +28,7 @@ public class UpdatePersonAddressByZipCodeStrategy implements UpdatePersonStrateg
         verifyZipCode(zipCode);
 
         Person person = fetchPerson.fetch(id);
-        Address address = fetchAddress.fetchAddress(zipCode);
+        Address address = fetchAddress.fetchAddress(formatZipCode(zipCode));
 
         person.setAddress(address);
 
@@ -42,8 +42,12 @@ public class UpdatePersonAddressByZipCodeStrategy implements UpdatePersonStrateg
     }
 
     private static void verifyZipCode(final String zipCode) {
-        if (zipCode.length() >= 8 && zipCode.length() <= 9) {
+        if (zipCode.length() < 8 || zipCode.length() > 9) {
             throw new InvalidZipCodeException();
         }
+    }
+
+    private static String formatZipCode(final String zipCode) {
+        return zipCode.replace("-", "");
     }
 }
