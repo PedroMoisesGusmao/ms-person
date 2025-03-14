@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class UpdatePersonEmailStrategy implements UpdatePersonStrategy {
     private final FetchPersonOutputPort fetchPerson;
     private final SavePersonOutputPort savePerson;
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     @Override
     public void updatePerson(String id, Object body) {
         log.info("[UpdatePersonEmailStrategy][Start] Update person email: {}", id);
