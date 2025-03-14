@@ -57,9 +57,7 @@ public class SavePersonUseCase implements SavePersonInputPort {
     }
 
     private void checkIfPersonIsRegistered(String cpf) {
-        fetchPersonByCpf.fetchByCpf(cpf)
-                .orElseThrow(PersonIsAlreadyRegisteredException::new);
-    }
+        if (fetchPersonByCpf.fetchByCpf(cpf).isPresent()) throw new PersonIsAlreadyRegisteredException();}
 
     private static String formatAddress(final String zipCode) {
         return zipCode.replace("-", "");
