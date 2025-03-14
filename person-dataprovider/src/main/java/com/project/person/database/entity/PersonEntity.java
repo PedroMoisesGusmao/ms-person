@@ -16,11 +16,11 @@ public class PersonEntity {
     @Field("name")
     private String name;
 
-    @Field("age")
-    private String age;
-
     @Field("cpf")
     private String cpf;
+
+    @Field("email")
+    private String email;
 
     @Field("address")
     private AddressEntity address;

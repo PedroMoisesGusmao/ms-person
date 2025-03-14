@@ -22,6 +22,8 @@ public class Person {
 
     private String cpf;
 
+    private String email;
+
     private Address address;
 
     private LocalDate birthDate;
