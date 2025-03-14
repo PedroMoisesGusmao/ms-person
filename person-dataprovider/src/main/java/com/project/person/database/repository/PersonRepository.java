@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface PersonRepository extends MongoRepository<PersonEntity, String> {
     Optional<PersonEntity> findByCpf(String cpf);
 
-    @Query("{}, {id: -1}, {limit: 1}")
-    Optional<PersonEntity> findOneOrderByIdDesc();
+    Optional<PersonEntity> findTopByOrderByIdDesc();
 }

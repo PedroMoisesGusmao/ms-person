@@ -17,7 +17,7 @@ public class FetchLastRegisteredPersonAdapter implements FetchLastRegisteredPers
 
     @Override
     public Optional<Person> fetchLastRegisteredPerson() {
-        return repository.findOneOrderByIdDesc()
+        return repository.findTopByOrderByIdDesc()
                 .map(mapper::toDomain);
     }
 }
