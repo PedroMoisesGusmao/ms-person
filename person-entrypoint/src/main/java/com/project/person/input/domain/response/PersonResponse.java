@@ -23,6 +23,9 @@ public class PersonResponse {
     @Schema(name = "cpf", description = "The CPF of the person (must be a valid cpf)", example = "09457463005")
     private String cpf;
 
+    @Schema(name = "email", description = "The email of the person", example = "example@example.com")
+    private String email;
+
     @Schema(name = "address", description = "The address of the person")
     private AddressResponse address;
 
