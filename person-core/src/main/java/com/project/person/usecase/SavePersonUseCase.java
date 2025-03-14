@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -36,9 +37,11 @@ public class SavePersonUseCase implements SavePersonInputPort {
 
         validateAge(person.getBirthDate());
         checkIfPersonIsRegistered(person.getCpf());
-        person.setId(definePersonId());
+
         Address address = fetchAddressByZipCode.fetchAddress(person.getAddress().getZipCode());
+        address.setZipCode(formatAddress(address.getZipCode()));
         person.setAddress(address);
+        person.setId(definePersonId());
         savePerson.save(person);
 
         log.info("[SavePersonUseCase][End] Saved Person: {}", person);
@@ -47,17 +50,19 @@ public class SavePersonUseCase implements SavePersonInputPort {
     }
 
     private void validateAge(LocalDate birthDate) {
-        Period period = Period.between(birthDate, LocalDate.now());
-
-        if (period.getYears() < minimumAge) {
-            throw new UnderAgePersonException();
-        }
+        Optional.ofNullable(birthDate)
+                .map(date -> Period.between(birthDate, LocalDate.now()).getYears())
+                .filter(years -> years >= minimumAge)
+                .orElseThrow(UnderAgePersonException::new);
     }
 
     private void checkIfPersonIsRegistered(String cpf) {
-        if (fetchPersonByCpf.fetchByCpf(cpf).isPresent()) {
-            throw new PersonIsAlreadyRegisteredException();
-        }
+        fetchPersonByCpf.fetchByCpf(cpf)
+                .orElseThrow(PersonIsAlreadyRegisteredException::new);
+    }
+
+    private static String formatAddress(final String zipCode) {
+        return zipCode.replace("-", "");
     }
 
     private int definePersonId() {
