@@ -50,7 +50,7 @@ public class SavePersonUseCaseTest {
                         () -> LocalDate.now().minusYears(16));
         easyRandom = new EasyRandom(parameters);
         person = easyRandom.nextObject(Person.class);
-        ReflectionTestUtils.setField(useCase, "MINIMUM_AGE", 16);
+        ReflectionTestUtils.setField(useCase, "minimumAge", 16);
     }
 
     @Test
