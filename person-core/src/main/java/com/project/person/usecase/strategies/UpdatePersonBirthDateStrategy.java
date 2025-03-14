@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,11 +27,8 @@ public class UpdatePersonBirthDateStrategy implements UpdatePersonStrategy {
     public void updatePerson(final String id, final Object body) {
         log.info("[UpdatePersonBirthDateStrategy][Start] Update person birth date: {}", id);
         LocalDate birthDate = (LocalDate) body;
-        Period period = Period.between(birthDate, LocalDate.now());
 
-        if (period.getYears() < minimumAge) {
-            throw new UnderAgePersonException();
-        }
+        validateAge(birthDate);
 
         Person person = fetchPerson.fetch(id);
         person.setBirthDate(birthDate);
@@ -42,6 +40,13 @@ public class UpdatePersonBirthDateStrategy implements UpdatePersonStrategy {
     @Override
     public boolean isValid(String field) {
         return Objects.equals(field, "birthDate");
+    }
+
+    private void validateAge(LocalDate birthDate) {
+        Optional.ofNullable(birthDate)
+                .map(date -> Period.between(date, LocalDate.now()).getYears())
+                .filter(years -> years >= minimumAge)
+                .orElseThrow(UnderAgePersonException::new);
     }
 
 }
