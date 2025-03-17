@@ -36,7 +36,7 @@ public class UpdatePersonBirthDateStrategy implements UpdatePersonStrategy {
 
     @Override
     public boolean isValid(String field) {
-        return Objects.equals(field, "birthDate");
+        return Objects.equals(field, "birth_date");
     }
 
     private void validateAge(LocalDate birthDate) {
