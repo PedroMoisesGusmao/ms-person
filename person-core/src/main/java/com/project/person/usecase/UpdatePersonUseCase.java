@@ -12,11 +12,7 @@ public class UpdatePersonUseCase implements UpdatePersonInputPort {
     private final UpdatePersonStrategyFactory factory;
     @Override
     public void update(final String id, final Map<String, Object> request) {
-        request.keySet().stream()
-                .map(factory::findFieldsToUpdate)
-                .forEach((strategy) ->
-                        request.values().forEach(
-                            (value) -> strategy.updatePerson(id, value)
-                ));
+        request.forEach(
+                (key, value) -> factory.findFieldsToUpdate(key).updatePerson(id, value));
     }
 }
