@@ -14,15 +14,14 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class UpdatePersonNameStrategy implements UpdatePersonStrategy {
-    private final FetchPersonOutputPort fetchPerson;
     private final SavePersonOutputPort savePerson;
     @Override
-    public void updatePerson(final String id, final Object body) {
-        log.info("[UpdatePersonNameStrategy][Start] Update person name: {}", id);
+    public void updatePerson(final Person person, final Object body) {
+        log.info("[UpdatePersonNameStrategy][Start] Update person name: {}", person);
         String name = (String) body;
 
-        Person person = fetchPerson.fetch(id);
         person.setName(name);
+
         savePerson.save(person);
 
         log.info("[UpdatePersonNameStrategy][End] Person name updated: {}", person);

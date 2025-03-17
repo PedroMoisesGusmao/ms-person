@@ -2,7 +2,6 @@ package com.project.person.usecase.strategies;
 
 import com.project.person.domain.Person;
 import com.project.person.exception.UnderAgePersonException;
-import com.project.person.ports.output.FetchPersonOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
 import com.project.person.usecase.UpdatePersonStrategy;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +18,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UpdatePersonBirthDateStrategy implements UpdatePersonStrategy {
-    private final FetchPersonOutputPort fetchPerson;
     private final SavePersonOutputPort savePerson;
     @Value("${project.person.minimum-age}")
     private int minimumAge;
     @Override
-    public void updatePerson(final String id, final Object body) {
-        log.info("[UpdatePersonBirthDateStrategy][Start] Update person birth date: {}", id);
+    public void updatePerson(final Person person, final Object body) {
+        log.info("[UpdatePersonBirthDateStrategy][Start] Update person birth date: {}", person);
         LocalDate birthDate = (LocalDate) body;
 
         validateAge(birthDate);
 
-        Person person = fetchPerson.fetch(id);
         person.setBirthDate(birthDate);
 
         savePerson.save(person);

@@ -45,10 +45,9 @@ public class PersonController implements PersonContract {
     }
 
     @PatchMapping
-    public ResponseEntity<Void> update(@RequestHeader String id, @RequestBody Map<String, Object> request) {
-        updatePerson.update(id, request);
-
-        return ResponseEntity.status(NO_CONTENT).build();
+    public ResponseEntity<PersonResponse> update(@RequestHeader String id, @RequestBody Map<String, Object> request) {
+        Person person = updatePerson.update(id, request);
+        return ResponseEntity.status(OK).body(mapper.toPersonResponse(person));
     }
 
 }

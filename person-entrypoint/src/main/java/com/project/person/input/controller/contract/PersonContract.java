@@ -33,7 +33,7 @@ public interface PersonContract {
 
     @Operation(summary = "Update Person", description = "Update a existing person")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Update was realized successfully"),
+            @ApiResponse(responseCode = "200", description = "Update was realized successfully"),
             @ApiResponse(responseCode = "400", description = "An bad request occurred (maybe a non-existent field was passed)"),
             @ApiResponse(responseCode = "500", description = "An internal server error occurred")
     })
@@ -42,5 +42,5 @@ public interface PersonContract {
             content = @Content(mediaType = "application/json",
             schema = @Schema(
                     example = "{\n\t\"email\": \"example@example.com\",\n\t\"zip_code\": \"04568020\"\n}")))
-    ResponseEntity<Void> update(final String id, final Map<String, Object> request);
+    ResponseEntity<PersonResponse> update(final String id, final Map<String, Object> request);
 }

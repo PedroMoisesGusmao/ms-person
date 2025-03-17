@@ -4,7 +4,6 @@ import com.project.person.domain.Address;
 import com.project.person.domain.Person;
 import com.project.person.exception.InvalidZipCodeException;
 import com.project.person.ports.output.FetchAddressOutputPort;
-import com.project.person.ports.output.FetchPersonOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
 import com.project.person.usecase.UpdatePersonStrategy;
 import lombok.RequiredArgsConstructor;
@@ -18,18 +17,15 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UpdatePersonAddressByZipCodeStrategy implements UpdatePersonStrategy {
     private final FetchAddressOutputPort fetchAddress;
-    private final FetchPersonOutputPort fetchPerson;
     private final SavePersonOutputPort savePersonOutputPort;
     @Override
-    public void updatePerson(String id, Object body) {
-        log.info("[UpdatePersonAddressStrategy][Start] Update person address: {}", id);
+    public void updatePerson(final Person person, final Object body) {
+        log.info("[UpdatePersonAddressStrategy][Start] Update person address: {}", person);
         String zipCode = (String) body;
 
         verifyZipCode(zipCode);
 
-        Person person = fetchPerson.fetch(id);
         Address address = fetchAddress.fetchAddress(formatZipCode(zipCode));
-
         person.setAddress(address);
 
         savePersonOutputPort.save(person);
