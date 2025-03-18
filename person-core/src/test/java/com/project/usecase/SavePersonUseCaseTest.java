@@ -40,7 +40,6 @@ public class SavePersonUseCaseTest {
     private FetchAddressOutputPort fetchAddressByZipCode;
     @Mock
     private FetchLastRegisteredPersonOutputPort fetchLastRegisteredPerson;
-    private EasyRandom easyRandom;
     private Person person;
 
     @BeforeEach
@@ -48,7 +47,7 @@ public class SavePersonUseCaseTest {
         EasyRandomParameters parameters = new EasyRandomParameters()
                 .randomize(field -> field.getName().equals("birthDate"),
                         () -> LocalDate.now().minusYears(16));
-        easyRandom = new EasyRandom(parameters);
+        EasyRandom easyRandom = new EasyRandom(parameters);
         person = easyRandom.nextObject(Person.class);
         ReflectionTestUtils.setField(useCase, "minimumAge", 16);
     }
