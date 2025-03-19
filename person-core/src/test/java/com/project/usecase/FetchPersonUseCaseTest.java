@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,9 +32,9 @@ public class FetchPersonUseCaseTest {
     @Test
     void should_fetch_person() {
         final Person person = easyRandom.nextObject(Person.class);
-        when(fetchPersonOutputPort.fetch(anyString())).thenReturn(person);
+        when(fetchPersonOutputPort.fetch(any(Integer.class))).thenReturn(person);
 
-        final Person fetchedPerson = useCase.fetch(easyRandom.nextObject(String.class));
+        final Person fetchedPerson = useCase.fetch(easyRandom.nextInt());
 
         assertEquals(person, fetchedPerson);
     }

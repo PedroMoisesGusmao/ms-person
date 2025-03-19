@@ -14,7 +14,7 @@ public class UpdatePersonUseCase implements UpdatePersonInputPort {
     private final FetchPersonOutputPort fetchPerson;
     private final UpdatePersonStrategyFactory factory;
     @Override
-    public Person update(final String id, final Map<String, Object> request) {
+    public Person update(final int id, final Map<String, Object> request) {
         Person person = fetchPerson.fetch(id);
         request.forEach(
                 (key, value) -> factory.findFieldsToUpdate(key).updatePerson(person, value));

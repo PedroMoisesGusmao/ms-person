@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -34,7 +33,7 @@ public class PersonController implements PersonContract {
     private final UpdatePersonInputPort updatePerson;
     private final PersonRequestMapper mapper;
     @GetMapping
-    public ResponseEntity<PersonResponse> fetch(@RequestHeader final String id) {
+    public ResponseEntity<PersonResponse> fetch(@RequestHeader final int id) {
         Person person = fetchPerson.fetch(id);
         return ResponseEntity.status(OK).body(mapper.toPersonResponse(person));
     }
@@ -45,7 +44,7 @@ public class PersonController implements PersonContract {
     }
 
     @PatchMapping
-    public ResponseEntity<PersonResponse> update(@RequestHeader String id, @RequestBody Map<String, Object> request) {
+    public ResponseEntity<PersonResponse> update(@RequestHeader int id, @RequestBody Map<String, Object> request) {
         Person person = updatePerson.update(id, request);
         return ResponseEntity.status(OK).body(mapper.toPersonResponse(person));
     }

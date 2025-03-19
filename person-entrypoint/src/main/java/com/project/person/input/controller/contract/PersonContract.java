@@ -22,14 +22,14 @@ public interface PersonContract {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "An bad request occurred"),
             @ApiResponse(responseCode = "500", description = "An internal server error occurred")})
-    ResponseEntity<PersonResponse> fetch(final String id);
+    ResponseEntity<PersonResponse> fetch(int id);
 
     @Operation(summary = "Save Person", description = "Save a new person")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "400", description = "An bad request occurred"),
             @ApiResponse(responseCode = "500", description = "An internal server error occurred")})
-    ResponseEntity<PersonResponse> save(final PersonRequest request);
+    ResponseEntity<PersonResponse> save(PersonRequest request);
 
     @Operation(summary = "Update Person", description = "Update a existing person")
     @ApiResponses(value = {
@@ -42,5 +42,5 @@ public interface PersonContract {
             content = @Content(mediaType = "application/json",
             schema = @Schema(
                     example = "{\n\t\"email\": \"example@example.com\",\n\t\"zip_code\": \"04568020\"\n}")))
-    ResponseEntity<PersonResponse> update(final String id, final Map<String, Object> request);
+    ResponseEntity<PersonResponse> update(int id, Map<String, Object> request);
 }

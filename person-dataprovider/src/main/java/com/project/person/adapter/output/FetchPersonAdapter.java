@@ -15,7 +15,7 @@ public class FetchPersonAdapter implements FetchPersonOutputPort {
     private final PersonRepository repository;
     private final PersonMapper mapper;
     @Override
-    public Person fetch(String id) {
+    public Person fetch(int id) {
         PersonEntity entity = repository.findById(id)
                 .orElseThrow(PersonNotFoundException::new);
         return mapper.toDomain(entity);
