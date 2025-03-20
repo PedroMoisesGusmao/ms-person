@@ -2,7 +2,6 @@ package com.project.person.usecase.strategies;
 
 import com.project.person.domain.Person;
 import com.project.person.exception.InvalidEmailException;
-import com.project.person.ports.output.FetchPersonOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
 import com.project.person.usecase.UpdatePersonStrategy;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UpdatePersonEmailStrategy implements UpdatePersonStrategy {
+public class UpdateEmailStrategy implements UpdatePersonStrategy {
     private final SavePersonOutputPort savePerson;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     @Override

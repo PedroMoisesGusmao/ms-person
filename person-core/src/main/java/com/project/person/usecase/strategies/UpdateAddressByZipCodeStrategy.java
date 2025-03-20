@@ -15,7 +15,7 @@ import java.util.Objects;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UpdatePersonAddressByZipCodeStrategy implements UpdatePersonStrategy {
+public class UpdateAddressByZipCodeStrategy implements UpdatePersonStrategy {
     private final FetchAddressOutputPort fetchAddress;
     private final SavePersonOutputPort savePersonOutputPort;
     @Override

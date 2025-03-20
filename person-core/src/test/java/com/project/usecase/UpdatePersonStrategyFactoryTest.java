@@ -3,10 +3,10 @@ package com.project.usecase;
 import com.project.person.exception.InvalidFieldToUpdateException;
 import com.project.person.usecase.UpdatePersonStrategy;
 import com.project.person.usecase.UpdatePersonStrategyFactory;
-import com.project.person.usecase.strategies.UpdatePersonAddressByZipCodeStrategy;
-import com.project.person.usecase.strategies.UpdatePersonBirthDateStrategy;
-import com.project.person.usecase.strategies.UpdatePersonEmailStrategy;
-import com.project.person.usecase.strategies.UpdatePersonNameStrategy;
+import com.project.person.usecase.strategies.UpdateAddressByZipCodeStrategy;
+import com.project.person.usecase.strategies.UpdateBirthDateStrategy;
+import com.project.person.usecase.strategies.UpdateEmailStrategy;
+import com.project.person.usecase.strategies.UpdateNameStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,10 +26,10 @@ public class UpdatePersonStrategyFactoryTest {
     @BeforeEach
     void setUp() {
         factory = new UpdatePersonStrategyFactory(List.of(
-                new UpdatePersonAddressByZipCodeStrategy(null, null),
-                new UpdatePersonBirthDateStrategy(null),
-                new UpdatePersonEmailStrategy(null),
-                new UpdatePersonNameStrategy(null)
+                new UpdateAddressByZipCodeStrategy(null, null),
+                new UpdateBirthDateStrategy(null),
+                new UpdateEmailStrategy(null),
+                new UpdateNameStrategy(null)
         ));
     }
 
@@ -54,10 +54,10 @@ public class UpdatePersonStrategyFactoryTest {
 
     private static List<Arguments> strategies() {
         return List.of(
-                Arguments.arguments("zip_code", UpdatePersonAddressByZipCodeStrategy.class),
-                Arguments.arguments("birth_date", UpdatePersonBirthDateStrategy.class),
-                Arguments.arguments("email", UpdatePersonEmailStrategy.class),
-                Arguments.arguments("name", UpdatePersonNameStrategy.class)
+                Arguments.arguments("zip_code", UpdateAddressByZipCodeStrategy.class),
+                Arguments.arguments("birth_date", UpdateBirthDateStrategy.class),
+                Arguments.arguments("email", UpdateEmailStrategy.class),
+                Arguments.arguments("name", UpdateNameStrategy.class)
         );
     }
 }

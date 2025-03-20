@@ -1,7 +1,6 @@
 package com.project.person.usecase.strategies;
 
 import com.project.person.domain.Person;
-import com.project.person.ports.output.FetchPersonOutputPort;
 import com.project.person.ports.output.SavePersonOutputPort;
 import com.project.person.usecase.UpdatePersonStrategy;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.Objects;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UpdatePersonNameStrategy implements UpdatePersonStrategy {
+public class UpdateNameStrategy implements UpdatePersonStrategy {
     private final SavePersonOutputPort savePerson;
     @Override
     public void updatePerson(final Person person, final Object body) {

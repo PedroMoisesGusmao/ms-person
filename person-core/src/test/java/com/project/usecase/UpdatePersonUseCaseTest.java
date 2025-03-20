@@ -4,8 +4,8 @@ import com.project.person.domain.Person;
 import com.project.person.ports.output.FetchPersonOutputPort;
 import com.project.person.usecase.UpdatePersonStrategyFactory;
 import com.project.person.usecase.UpdatePersonUseCase;
-import com.project.person.usecase.strategies.UpdatePersonEmailStrategy;
-import com.project.person.usecase.strategies.UpdatePersonNameStrategy;
+import com.project.person.usecase.strategies.UpdateEmailStrategy;
+import com.project.person.usecase.strategies.UpdateNameStrategy;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,9 +31,9 @@ public class UpdatePersonUseCaseTest {
     @Mock
     private UpdatePersonStrategyFactory factory;
     @Mock
-    private UpdatePersonNameStrategy updatePersonNameStrategy;
+    private UpdateNameStrategy updateNameStrategy;
     @Mock
-    private UpdatePersonEmailStrategy updatePersonEmailStrategy;
+    private UpdateEmailStrategy updateEmailStrategy;
     @Mock
     private FetchPersonOutputPort fetchPerson;
     EasyRandom easyRandom;
@@ -52,13 +52,13 @@ public class UpdatePersonUseCaseTest {
         Map<String, Object> request = Map.of("name", person);
 
         when(fetchPerson.fetch(any(Integer.class))).thenReturn(person);
-        when(factory.findFieldsToUpdate("name")).thenReturn(updatePersonNameStrategy);
+        when(factory.findFieldsToUpdate("name")).thenReturn(updateNameStrategy);
 
-        doNothing().when(updatePersonNameStrategy).updatePerson(any(Person.class), any(Object.class));
+        doNothing().when(updateNameStrategy).updatePerson(any(Person.class), any(Object.class));
         Person updatedPerson = useCase.update(1, request);
 
         assertEquals(person, updatedPerson);
-        verify(updatePersonNameStrategy).updatePerson(any(Person.class), any(Object.class));
+        verify(updateNameStrategy).updatePerson(any(Person.class), any(Object.class));
     }
 
     @Test
@@ -67,12 +67,12 @@ public class UpdatePersonUseCaseTest {
         Map<String, Object> request = Map.of("name", person.getName(), "email", person.getEmail());
 
         when(fetchPerson.fetch(any(Integer.class))).thenReturn(person);
-        when(factory.findFieldsToUpdate("name")).thenReturn(updatePersonNameStrategy);
-        when(factory.findFieldsToUpdate("email")).thenReturn(updatePersonEmailStrategy);
+        when(factory.findFieldsToUpdate("name")).thenReturn(updateNameStrategy);
+        when(factory.findFieldsToUpdate("email")).thenReturn(updateEmailStrategy);
 
         Person updatedPerson = useCase.update(1, request);
 
         assertEquals(person, updatedPerson);
-        verify(updatePersonNameStrategy).updatePerson(any(Person.class), any(Object.class));
+        verify(updateNameStrategy).updatePerson(any(Person.class), any(Object.class));
     }
 }

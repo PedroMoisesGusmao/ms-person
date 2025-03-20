@@ -17,7 +17,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UpdatePersonBirthDateStrategy implements UpdatePersonStrategy {
+public class UpdateBirthDateStrategy implements UpdatePersonStrategy {
     private final SavePersonOutputPort savePerson;
     @Value("${project.person.minimum-age}")
     private int minimumAge;
