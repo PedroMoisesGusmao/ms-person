@@ -1,4 +1,4 @@
-package com.project.person.usecase.strategies;
+package com.project.person.usecase.strategy;
 
 import com.project.person.domain.Person;
 import com.project.person.ports.output.SavePersonOutputPort;

@@ -1,4 +1,4 @@
-package com.project.person.usecase.strategies;
+package com.project.person.usecase.strategy;
 
 import com.project.person.domain.Address;
 import com.project.person.domain.Person;
