@@ -14,4 +14,4 @@ project:
         paths:
           get-zipcode: ws/{zip_code}/json
   person:
-    minimum-age: 16
+    minimum-age: ${PERSON_MINIMUM_AGE}
