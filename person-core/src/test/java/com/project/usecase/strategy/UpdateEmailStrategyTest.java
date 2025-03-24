@@ -26,7 +26,7 @@ public class UpdateEmailStrategyTest {
     @Mock
     private SavePersonOutputPort savePerson;
 
-    EasyRandom easyRandom;
+    private EasyRandom easyRandom;
 
     @BeforeEach
     void setUp() {
