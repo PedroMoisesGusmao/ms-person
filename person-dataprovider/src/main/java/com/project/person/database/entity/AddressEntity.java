@@ -14,8 +14,8 @@ public class AddressEntity {
     @Field("thoroughfare")
     private String thoroughfare;
 
-    @Field("address_complement")
-    private String addressComplement;
+    @Field("complement")
+    private String complement;
 
     @Field("neighborhood")
     private String neighborhood;
