@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -22,16 +24,11 @@ public class FetchAddressAdapter implements FetchAddressOutputPort {
         log.info("[FetchAddressByZipCodeAdapter][Start] Fetch address by zip code: {}",
                 zipCode);
         final AddressResponse response = client.fetchAddressByZipCode(zipCode);
-        verifyNullBody(response);
+        Objects.requireNonNull(response.getCep(),
+                () -> {throw new InvalidZipCodeException();});
         response.setCep(formatZipCode(response.getCep()));
         log.info("[FetchAddressByZipCodeAdapter][End] Fetched address: {}", response);
         return mapper.toAddressFromAddressResponse(response);
-    }
-
-    private static void verifyNullBody(final AddressResponse response) {
-        if (response.getCep() == null) {
-            throw new InvalidZipCodeException();
-        }
     }
     private static String formatZipCode(final String zipCode) {
         return zipCode.replace("-", "");
