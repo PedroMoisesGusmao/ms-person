@@ -51,8 +51,6 @@ public class SavePersonAdapterTest {
     void should_save_person_then_return_person() {
         Person person = easyRandom.nextObject(Person.class);
 
-        when(repository.save(any(PersonEntity.class))).thenReturn(null);
-
         Person savedPerson = useCase.save(person);
 
         assertNotNull(savedPerson);
