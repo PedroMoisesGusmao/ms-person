@@ -49,24 +49,24 @@ public class FetchLastRegisteredPersonAdapterTest {
     @Test
     void should_fetch_last_registered_person_then_return_person() {
         PersonEntity entity = easyRandom.nextObject(PersonEntity.class);
-        Person person = toDomain(entity);
+        Person expected = toDomain(entity);
 
         when(repository.findTopByOrderByIdDesc()).thenReturn(Optional.of(entity));
 
-        Optional<Person> returnedPersonOptional = fetchLastRegisteredPerson.fetchLastRegisteredPerson();
-        Person returnedPerson = returnedPersonOptional.get();
+        Optional<Person> resultOptional = fetchLastRegisteredPerson.fetchLastRegisteredPerson();
+        Person result = resultOptional.get();
 
         verify(mapper).toDomain(entity);
-        assertEquals(person.getId(), returnedPerson.getId());
-        assertEquals(person.getName(), returnedPerson.getName());
-        assertEquals(person.getCpf(), returnedPerson.getCpf());
-        assertEquals(person.getEmail(), returnedPerson.getEmail());
-        assertEquals(person.getAddress().getZipCode(), returnedPerson.getAddress().getZipCode());
-        assertEquals(person.getAddress().getThoroughfare(), returnedPerson.getAddress().getThoroughfare());
-        assertEquals(person.getAddress().getComplement(), returnedPerson.getAddress().getComplement());
-        assertEquals(person.getAddress().getNeighborhood(), returnedPerson.getAddress().getNeighborhood());
-        assertEquals(person.getAddress().getState(), returnedPerson.getAddress().getState());
-        assertEquals(person.getBirthDate(), returnedPerson.getBirthDate());
+        assertEquals(expected.getId(), result.getId());
+        assertEquals(expected.getName(), result.getName());
+        assertEquals(expected.getCpf(), result.getCpf());
+        assertEquals(expected.getEmail(), result.getEmail());
+        assertEquals(expected.getAddress().getZipCode(), result.getAddress().getZipCode());
+        assertEquals(expected.getAddress().getThoroughfare(), result.getAddress().getThoroughfare());
+        assertEquals(expected.getAddress().getComplement(), result.getAddress().getComplement());
+        assertEquals(expected.getAddress().getNeighborhood(), result.getAddress().getNeighborhood());
+        assertEquals(expected.getAddress().getState(), result.getAddress().getState());
+        assertEquals(expected.getBirthDate(), result.getBirthDate());
     }
 
     private static Person toDomain(PersonEntity entity) {
