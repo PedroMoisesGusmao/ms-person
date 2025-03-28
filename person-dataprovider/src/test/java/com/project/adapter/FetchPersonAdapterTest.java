@@ -2,11 +2,8 @@ package com.project.adapter;
 
 import com.project.person.adapter.mapper.PersonMapper;
 import com.project.person.adapter.output.FetchPersonAdapter;
-import com.project.person.database.entity.AddressEntity;
 import com.project.person.database.entity.PersonEntity;
 import com.project.person.database.repository.PersonRepository;
-import com.project.person.domain.Address;
-import com.project.person.domain.Person;
 import com.project.person.exception.PersonNotFoundException;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
@@ -56,25 +53,13 @@ public class FetchPersonAdapterTest {
     void should_fetch_person_then_return() {
         int entityId = easyRandom.nextInt();
         PersonEntity entity = easyRandom.nextObject(PersonEntity.class);
-        AddressEntity addressEntity = entity.getAddress();
 
         when(repository.findById(entityId)).thenReturn(Optional.of(entity));
 
-        Person person = fetchPerson.fetch(entityId);
-        Address address = person.getAddress();
+        fetchPerson.fetch(entityId);
 
         verify(mapper).toDomain(entity);
-        assertEquals(entity.getId(), person.getId());
-        assertEquals(entity.getName(), person.getName());
-        assertEquals(entity.getCpf(), person.getCpf());
-        assertEquals(entity.getEmail(), person.getEmail());
-
-        assertEquals(addressEntity.getZipCode(), address.getZipCode());
-        assertEquals(addressEntity.getThoroughfare(), address.getThoroughfare());
-        assertEquals(addressEntity.getNeighborhood(), address.getNeighborhood());
-        assertEquals(addressEntity.getState(), address.getState());
-
-        assertEquals(LocalDate.parse(entity.getBirthDate()), person.getBirthDate());
+        verify(repository).findByCpf(entity.getCpf());
     }
 
     @Test

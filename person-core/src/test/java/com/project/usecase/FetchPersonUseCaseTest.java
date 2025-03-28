@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,7 +23,7 @@ public class FetchPersonUseCaseTest {
     private FetchPersonUseCase useCase;
 
     @Mock
-    private FetchPersonOutputPort fetchPersonOutputPort;
+    private FetchPersonOutputPort fetchPerson;
 
     private EasyRandom easyRandom;
     @BeforeEach
@@ -32,10 +34,11 @@ public class FetchPersonUseCaseTest {
     @Test
     void should_fetch_person() {
         final Person person = easyRandom.nextObject(Person.class);
-        when(fetchPersonOutputPort.fetch(any(Integer.class))).thenReturn(person);
+        when(fetchPerson.fetch(any(Integer.class))).thenReturn(person);
 
         final Person fetchedPerson = useCase.fetch(easyRandom.nextInt());
 
         assertEquals(person, fetchedPerson);
+        verify(fetchPerson).fetch(anyInt());
     }
 }

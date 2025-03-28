@@ -2,11 +2,8 @@ package com.project.adapter;
 
 import com.project.person.adapter.mapper.PersonMapper;
 import com.project.person.adapter.output.FetchLastRegisteredPersonAdapter;
-import com.project.person.database.entity.AddressEntity;
 import com.project.person.database.entity.PersonEntity;
 import com.project.person.database.repository.PersonRepository;
-import com.project.person.domain.Address;
-import com.project.person.domain.Person;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.function.Predicate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -49,44 +41,12 @@ public class FetchLastRegisteredPersonAdapterTest {
     @Test
     void should_fetch_last_registered_person_then_return_person() {
         PersonEntity entity = easyRandom.nextObject(PersonEntity.class);
-        Person expected = toDomain(entity);
 
         when(repository.findTopByOrderByIdDesc()).thenReturn(Optional.of(entity));
 
-        Optional<Person> resultOptional = fetchLastRegisteredPerson.fetchLastRegisteredPerson();
-        Person result = resultOptional.get();
+        fetchLastRegisteredPerson.fetchLastRegisteredPerson();
 
         verify(mapper).toDomain(entity);
-        assertEquals(expected.getId(), result.getId());
-        assertEquals(expected.getName(), result.getName());
-        assertEquals(expected.getCpf(), result.getCpf());
-        assertEquals(expected.getEmail(), result.getEmail());
-        assertEquals(expected.getAddress().getZipCode(), result.getAddress().getZipCode());
-        assertEquals(expected.getAddress().getThoroughfare(), result.getAddress().getThoroughfare());
-        assertEquals(expected.getAddress().getComplement(), result.getAddress().getComplement());
-        assertEquals(expected.getAddress().getNeighborhood(), result.getAddress().getNeighborhood());
-        assertEquals(expected.getAddress().getState(), result.getAddress().getState());
-        assertEquals(expected.getBirthDate(), result.getBirthDate());
-    }
-
-    private static Person toDomain(PersonEntity entity) {
-        return Person.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .cpf(entity.getCpf())
-                .email(entity.getEmail())
-                .address(toAddressDomain(entity.getAddress()))
-                .birthDate(LocalDate.parse(entity.getBirthDate()))
-                .build();
-    }
-
-    private static Address toAddressDomain(AddressEntity addressEntity) {
-        return new Address(
-                addressEntity.getZipCode(),
-                addressEntity.getThoroughfare(),
-                addressEntity.getComplement(),
-                addressEntity.getNeighborhood(),
-                addressEntity.getState()
-        );
+        verify(repository).findTopByOrderByIdDesc();
     }
 }

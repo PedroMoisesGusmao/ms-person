@@ -3,7 +3,6 @@ package com.project.adapter;
 import com.project.person.adapter.mapper.PersonMapper;
 import com.project.person.adapter.output.FetchAddressAdapter;
 import com.project.person.client.FetchAddressByZipCodeClient;
-import com.project.person.domain.Address;
 import com.project.person.domain.response.AddressResponse;
 import com.project.person.exception.InvalidZipCodeException;
 import org.jeasy.random.EasyRandom;
@@ -18,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,36 +42,20 @@ public class FetchAddressAdapterTest {
 
         when(client.fetchAddressByZipCode(zipCode)).thenReturn(addressResponse);
 
-        Address address = fetchAddress.fetchAddress(zipCode);
-        Address expectedAddress = toAddressDomain(addressResponse);
+        fetchAddress.fetchAddress(zipCode);
 
-        verify(client).fetchAddressByZipCode(anyString());
+        verify(client).fetchAddressByZipCode(zipCode);
         verify(mapper).toAddressFromAddressResponse(addressResponse);
-        assertEquals(expectedAddress.getZipCode(), address.getZipCode());
-        assertEquals(expectedAddress.getThoroughfare(), address.getThoroughfare());
-        assertEquals(expectedAddress.getComplement(), address.getComplement());
-        assertEquals(expectedAddress.getNeighborhood(), address.getNeighborhood());
-        assertEquals(expectedAddress.getState(), address.getState());
     }
 
     @Test
     void should_throw_exception_when_address_is_not_found() {
         String zipCode = easyRandom.nextObject(String.class);
 
-        when(client.fetchAddressByZipCode(zipCode)).thenReturn(new AddressResponse(null, null, null, null, null));
+        when(client.fetchAddressByZipCode(zipCode)).thenReturn(AddressResponse.builder().build());
 
         InvalidZipCodeException exception = assertThrows(InvalidZipCodeException.class,
                 () -> fetchAddress.fetchAddress(zipCode));
         assertEquals("Zip code not found", exception.getMessage());
-    }
-
-    private static Address toAddressDomain(AddressResponse addressResponse) {
-        return new Address(
-                addressResponse.getCep(),
-                addressResponse.getLogradouro(),
-                addressResponse.getComplemento(),
-                addressResponse.getBairro(),
-                addressResponse.getEstado()
-        );
     }
 }

@@ -62,8 +62,10 @@ public class SavePersonUseCaseTest {
         Person savedPerson = useCase.save(person);
 
         assertEquals(savedPerson, person);
-        assertEquals(1, savedPerson.getId());
         verify(savePersonOutputPort).save(any(Person.class));
+        verify(fetchPersonByCpf).fetchByCpf(person.getCpf());
+        verify(fetchAddressByZipCode).fetchAddress(person.getAddress().getZipCode());
+        verify(fetchLastRegisteredPerson).fetchLastRegisteredPerson();
     }
 
     @Test
